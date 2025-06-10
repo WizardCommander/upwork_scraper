@@ -51,13 +51,20 @@ def load_cookies(driver):
 def is_logged_in(driver):
     try:
         driver.get("https://www.upwork.com/")
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 15).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, '#nav-right > ul > li.nav-d-none.nav-d-lg-flex.nav-dropdown.nav-dropdown-account.nav-arrow-end.fl-nav-rework > button > div'))
         )
-        close_profile_popup(driver)
-        return True
     except:
         return False
+
+    # Popup close shouldn't affect login check
+    try:
+        close_profile_popup(driver)
+    except:
+        pass
+
+    return True
+
     
 def close_profile_popup(driver):
     try:

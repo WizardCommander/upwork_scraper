@@ -1,0 +1,7 @@
+selenium
+openai
+python-dotenv
+requests
+schedule
+python-telegram-bot
+undetected-chromedriver
