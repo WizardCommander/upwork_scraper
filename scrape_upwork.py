@@ -49,21 +49,25 @@ def load_cookies(driver):
         return False
 
 def is_logged_in(driver):
+    driver.get("https://www.upwork.com/")
+    
     try:
-        driver.get("https://www.upwork.com/")
         WebDriverWait(driver, 15).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, '#nav-right > ul > li.nav-d-none.nav-d-lg-flex.nav-dropdown.nav-dropdown-account.nav-arrow-end.fl-nav-rework > button > div'))
         )
+        return True
     except:
-        return False
+        # Try to close the popup and recheck login indicator
+        try:
+            close_profile_popup(driver)
+            WebDriverWait(driver, 15).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, '#nav-right > ul > li.nav-d-none.nav-d-lg-flex.nav-dropdown.nav-dropdown-account.nav-arrow-end.fl-nav-rework > button > div'))
+            )
+            return True
+        except:
+            return False
 
-    # Popup close shouldn't affect login check
-    try:
-        close_profile_popup(driver)
-    except:
-        pass
 
-    return True
 
     
 def close_profile_popup(driver):
@@ -101,6 +105,7 @@ def login_to_upwork(driver):
 def login_or_restore(driver):
     logger.info("Attempting cookie login")
     driver.get("https://www.upwork.com/")
+    print("Confirming cookie login...")
     if load_cookies(driver):
         driver.refresh()
         if is_logged_in(driver):
