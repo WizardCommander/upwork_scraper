@@ -20,7 +20,7 @@ def send_telegram_message(text):
     }
     response = requests.post(url, json=payload)
     if not response.ok:
-        print(f"❌ Failed to send message: {response.text}")
+        print(f"Failed to send message: {response.text}")
 
 def format_job_message(job):
     title = job.get("title", "No title")
@@ -37,18 +37,18 @@ def format_job_message(job):
 
 def main():
     if not os.path.exists(APPROVED_JOBS_FILE):
-        print(f"❌ File not found: {APPROVED_JOBS_FILE}")
+        print(f"File not found: {APPROVED_JOBS_FILE}")
         return
 
     with open(APPROVED_JOBS_FILE, "r", encoding="utf-8") as f:
         try:
             jobs = json.load(f)
         except json.JSONDecodeError:
-            print("❌ Failed to parse JSON.")
+            print("Failed to parse JSON.")
             return
 
     if not jobs:
-        print("✅ No approved jobs to send.")
+        print("No jobs to send.")
         return
 
     for job in jobs:

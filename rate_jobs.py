@@ -69,7 +69,7 @@ Rate how well this job fits Sage on a scale of 1 to 10 and explain why."""
         score = int([int(s) for s in reply.split() if s.isdigit()][0])
         return score, reply
     except Exception as e:
-        print(f"❌ GPT error: {e}")
+        print(f"GPT error: {e}")
         return 0, ""
 
 def main():
@@ -84,7 +84,7 @@ def main():
             approved_jobs.append(job)
 
     save_approved_jobs(approved_jobs, OUTPUT_FILE)
-    print(f"✅ Done! {len(approved_jobs)} jobs approved and saved to {OUTPUT_FILE}")
+    print(f"Done! {len(approved_jobs)} jobs approved and saved to {OUTPUT_FILE}")
 
 if __name__ == "__main__":
     main()

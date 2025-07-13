@@ -78,10 +78,10 @@ def close_profile_popup(driver):
         close_button = driver.find_element(By.CSS_SELECTOR, "button.air3-btn.air3-btn-primary")
         if close_button.text.strip().lower() == "close":
             close_button.click()
-            logger.info("✅ Closed profile completion popup")
+            logger.info("Closed profile completion popup")
             time.sleep(1)
     except:
-        logger.info("✅ No profile popup detected or already closed")
+        logger.info("No profile popup detected or already closed")
 
 def login_to_upwork(driver):
     logger.info("Navigating to Upwork login")
@@ -109,9 +109,9 @@ def login_or_restore(driver):
     if load_cookies(driver):
         driver.refresh()
         if is_logged_in(driver):
-            logger.info("✅ Logged in with cookies")
+            logger.info("Logged in with cookies")
             return
-    logger.info("⚠️ Cookie login failed, using credentials")
+    logger.info("Cookie login failed, using credentials")
     login_to_upwork(driver)
 
 
